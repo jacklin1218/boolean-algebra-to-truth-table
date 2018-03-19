@@ -53,18 +53,17 @@ def create_truth_table(string, table):
         table.append(dectobin(i, tmp))
 
 
-def make_truth_table(string, table):
+def make_truth_table(string, table,letters):
     formula = input_to_list(string)
     letter_list = check_list(formula)
-    count = len(letter_list)
+    count = len(letters)
     prefix = infix_to_prefix(formula)
 
-    letter = check_list(formula)
     for i in range(0, pow(2, count)):
         tmp = [0] * count
         dectobin(i, tmp)
 
-        table[i].append(cal_prefix(letter, tmp, prefix) == 1)
+        table[i].append(cal_prefix(letters, tmp, prefix) == 1)
 
     return table
 
@@ -159,13 +158,15 @@ def cal_prefix(number_list, value, formula):
 def make_table(input_list):
     table = []
     letter_list = []
+    first_letter_list = []
     flag = 1
     for string in input_list:
         if flag == 1:
             create_truth_table(string,table)
             letter_list = check_list(input_to_list(string))
+            first_letter_list = list(letter_list)
             flag = 0
-        make_truth_table(string, table)
+        make_truth_table(string, table,first_letter_list)
         letter_list.append(string)
     return [table,letter_list]
 
